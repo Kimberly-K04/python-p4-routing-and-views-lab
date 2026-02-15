@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from shlex import join
 from flask import Flask
 
 app = Flask(__name__)
@@ -8,12 +9,12 @@ app = Flask(__name__)
 def index():
     return "<h1>Python Operations with Flask Routing and Views</h1>"
 
-@app.route("/counter/parameter")
-def counter(parameter):
-    parameter = int(parameter)
-    for i in range(parameter):
-        print(i)
-    return f"Counter from 0 to {parameter-1} printed in console."
+@app.route("/count/<parameter>")
+def count(parameter):
+    result = ""
+    for i in range(int(parameter)):
+        result += f"{i}\n"
+    return result
 
 @app.route("/print/<parameter>")
 def print_string(parameter):
@@ -39,8 +40,6 @@ def math(num1, operation, num2):
     
     
     return str(result)
-
-
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
